@@ -1,0 +1,52 @@
+# bash_prompt
+
+# Define functions to be used to set PROMPT_COMMAND
+
+uh_prompt() {
+    echo -e "\e[32;1m[\e[37;1m\u@\H\e[32;1m]-\e[m"
+}
+
+where_prompt() {
+    echo -e "\e[32;1m[\e[37;1m$1$(venv_prompt)\e[32;1m]\e[m"
+}
+
+pwd_prompt() {
+
+    #guake -r "`guake -g` - `  pwd`"
+    echo -e "\e[32;1m[\e[37;1mpwd:\w\e[32;1m]\e[m"
+}
+
+jobs_prompt() {
+    echo -e "\e[32;1m[\e[37;1mjobs:\j\e[32;1m]-\e[m"
+}
+
+venv_prompt() {
+    if [[ -z ${VIRTUAL_ENV+x} ]]; then
+        echo -n
+	return
+    fi
+    venv=`basename $VIRTUAL_ENV`
+    pyver=`python --version`
+    echo -n " with $pyver@$venv"
+}
+
+# Configure __git_ps1 variabled
+
+# From https://raw.githubusercontent.com/git/git/8976500cbbb13270398d3b3e07a17b8cc7bff43f/contrib/completion/git-prompt.sh
+source ~/bin/git-prompt.sh
+
+GIT_PS1_SHOWDIRTYSTATE="true"
+GIT_PS1_SHOWSTASHSTATE="true"
+GIT_PS1_SHOWUNTRACKEDFILES="true"
+GIT_PS1_SHOWUPSTREAM="auto"
+# Colored hints work only if __git_ps1 is called inside PROMPT_COMMAND
+GIT_PS1_SHOWCOLORHINTS="true"
+
+
+export PROMPT_COMMAND='__git_ps1 "$(exit_status=$? ; if test $exit_status -ne 0 ; then echo -e "(\[\033[31m\]err \[\033[0m\])" ; else echo  ; fi)$(uh_prompt)$(where_prompt Cafofo)\n$(jobs_prompt)$(pwd_prompt)" "\n\e[32;1m\][\e[37;1m\]#\!\[\e[32;1m\]]>>> \e[m" " (%s)"'
+
+
+# PROMPT_COMMAND='__git_ps1 "\[\e[32;1m\][\[\e[37;1m\]\u@\H\[\e[32;1m\]]\[\e[32;1m\]-[\[\e[37;1m\]Cafofo\[\e[32;1m\]]\[\e[32;1m\]\n[\[\e[37;1m\]jobs:\j\[\e[32;1m\]]-[\[\e[37;1m\]pwd:\w\[\e[32;1m\]]\e[m" "\n\e[32;1m\][\e[37;1m\]#\!\[\e[32;1m\]]>>> \e[m" " (%s)"'
+
+#PS1='\[\e[32;1m\][\[\e[37;1m\]\u@\H\[\e[32;1m\]]\[\e[32;1m\][\[\e[37;1m\]Cafofo\[\e[32;1m\]]\[\e[32;1m\]\n[\[\e[37;1m\]jobs:\j\[\e[32;1m\]]-[\[\e[37;1m\]pwd:\w\[\e[32;1m\]]\n[\[\e[37;1m\]#\!\[\e[32;1m\]]>>> \[\e[0m\]'
+
