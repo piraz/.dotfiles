@@ -20,7 +20,8 @@ return require("packer").startup(function(use)
     }
     use("kylechui/nvim-surround")
     use("nvim-tree/nvim-web-devicons")
-    use("nvim-treesitter/nvim-treesitter")
+    use("nvim-treesitter/nvim-treesitter", {run = ":TSUpdate"})
+    use("nvim-treesitter/playground")
     use("nvim-treesitter/nvim-treesitter-textobjects")
 
     use {
@@ -38,8 +39,9 @@ return require("packer").startup(function(use)
         end
     })
 
-    use("nvim-telescope/telescope.nvim")
     use("theprimeagen/harpoon")
+    use("mbbill/undotree")
+    use("tpope/vim-fugitive")
 
 end)
 
