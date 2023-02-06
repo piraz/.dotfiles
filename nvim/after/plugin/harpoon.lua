@@ -1,12 +1,10 @@
-local nnoremap = require("piraz.keymap").nnoremap
-
-local ui = require("harpoon.ui")
 local mark = require("harpoon.mark")
+local ui = require("harpoon.ui")
 
-nnoremap("<leader>a", function() mark.add_file() end)
-nnoremap("<leader>h", function() ui.toggle_quick_menu() end)
-nnoremap("<C-h>", function() ui.nav_file(1) end)
-nnoremap("<C-t>", function() ui.nav_file(2) end)
-nnoremap("<C-n>", function() ui.nav_file(3) end)
-nnoremap("<C-s>", function() ui.nav_file(4) end)
+vim.keymap.set("n", "<leader>a", mark.add_file)
+vim.keymap.set("n", "<leader>h", ui.toggle_quick_menu)
+vim.keymap.set("n", "<leader>1", function() ui.nav_file(1) end)
+vim.keymap.set("n", "<leader>2", function() ui.nav_file(2) end)
+vim.keymap.set("n", "<leader>3", function() ui.nav_file(3) end)
+vim.keymap.set("n", "<leader>4", function() ui.nav_file(4) end)
 
