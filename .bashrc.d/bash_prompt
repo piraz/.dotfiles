@@ -2,6 +2,16 @@
 
 # Define functions to be used to set PROMPT_COMMAND
 
+RS="\033[0m"    # reset
+HC="\033[1m"    # hicolor
+UL="\033[4m"    # underline
+INV="\033[7m"   # inverse background and foreground
+FBLK="\033[30m" # foreground black
+FRED="\033[31m" # foreground red
+FGRN="\033[32m" # foreground green
+FYEL="\033[33m" # foreground yellow
+
+
 uh_prompt() {
     echo -e "\e[32;1m[\e[37;1m\u@\H\e[32;1m]-\e[m"
 }
@@ -30,6 +40,17 @@ venv_prompt() {
     echo -n " with $pyver@$venv"
 }
 
+git_prompt() {
+    git branch --show-current > /dev/null 2>&1
+    if test $? -ne 0; then
+        echo -n
+	return
+    fi
+
+    git_branch=`git branch --show-current`
+    echo $git_branch
+}
+
 # Configure __git_ps1 variabled
 
 # From https://raw.githubusercontent.com/git/git/8976500cbbb13270398d3b3e07a17b8cc7bff43f/contrib/completion/git-prompt.sh
@@ -43,10 +64,13 @@ GIT_PS1_SHOWUPSTREAM="auto"
 GIT_PS1_SHOWCOLORHINTS="true"
 
 
-export PROMPT_COMMAND='__git_ps1 "$(exit_status=$? ; if test $exit_status -ne 0 ; then echo -e "(\[\033[31m\]err \[\033[0m\])" ; else echo  ; fi)$(uh_prompt)$(where_prompt Cafofo)\n$(jobs_prompt)$(pwd_prompt)" "\n\e[32;1m\][\e[37;1m\]#\!\[\e[32;1m\]]>>> \e[m" " (%s)"'
+#export PROMPT_COMMAND='__git_ps1 "\w" "\n\\\$ "'
+
+#export PROMPT_COMMAND='__git_ps1 "$(exit_status=$? ; if test $exit_status -ne 0 ; then echo -e "(\[\033[31m\]err \[\033[0m\])" ; else echo  ; fi)$(uh_prompt)$(where_prompt Cafofo)\n$(jobs_prompt)$(pwd_prompt)" "\n\e[32;1m\][\e[37;1m\]#\!\[\e[32;1m\]]>>> \e[m" " (%s)"'
 
 
 # PROMPT_COMMAND='__git_ps1 "\[\e[32;1m\][\[\e[37;1m\]\u@\H\[\e[32;1m\]]\[\e[32;1m\]-[\[\e[37;1m\]Cafofo\[\e[32;1m\]]\[\e[32;1m\]\n[\[\e[37;1m\]jobs:\j\[\e[32;1m\]]-[\[\e[37;1m\]pwd:\w\[\e[32;1m\]]\e[m" "\n\e[32;1m\][\e[37;1m\]#\!\[\e[32;1m\]]>>> \e[m" " (%s)"'
 
-#PS1='\[\e[32;1m\][\[\e[37;1m\]\u@\H\[\e[32;1m\]]\[\e[32;1m\][\[\e[37;1m\]Cafofo\[\e[32;1m\]]\[\e[32;1m\]\n[\[\e[37;1m\]jobs:\j\[\e[32;1m\]]-[\[\e[37;1m\]pwd:\w\[\e[32;1m\]]\n[\[\e[37;1m\]#\!\[\e[32;1m\]]>>> \[\e[0m\]'
+
+PS1='\[\e[32;1m\][\[\e[37;1m\]\u@\H\[\e[32;1m\]]\[\e[32;1m\][\[\e[37;1m\]P)\[\e[32;1m\]]\[\e[32;1m\]\n[\[\e[37;1m\]jobs:\j\[\e[32;1m\]]-[\[\e[37;1m\]pwd:\w\[\e[32;1m\]]\n[\[\e[37;1m\]#\!\[\e[32;1m\]]>>> \[\e[0m\]'
 
