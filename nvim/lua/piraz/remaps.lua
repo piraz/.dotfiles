@@ -12,4 +12,4 @@ nnoremap("<leader>pks", "<cmd>PackerSync<CR>");
 
 
 -- From: https://superuser.com/a/310424
--- TODO: See if this good: nnoremap()
+-- TODO: See if this is good: nnoremap()

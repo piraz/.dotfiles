@@ -1,2 +1,2 @@
-require("piraz");
+require("piraz")
 
