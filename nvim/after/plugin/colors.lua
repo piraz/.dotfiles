@@ -1,3 +1,4 @@
+-- for more color schemes, see: https://vimcolorschemes.com/
 
 function ColorMyPencils(color)
     -- color = color or "rose-pine"
@@ -8,4 +9,4 @@ function ColorMyPencils(color)
     vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
 end
 
-ColorMyPencils("duskfox")
+ColorMyPencils("rose-pine")
