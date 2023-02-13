@@ -1,8 +1,8 @@
 local Dev = require("piraz.dev")
 local log = Dev.log
 
-local function load_nvim_project()
-    log.trace("loading nvim-project")
+local nvim_project = pcall(require, "project_nvim")
+if nvim_project then
     require("project_nvim").setup {
         -- your configuration comes here
         -- or leave it empty to use the default settings
@@ -10,12 +10,6 @@ local function load_nvim_project()
         ignore_lsp = { "sumneko_lua" },
         silent_chdir = false,
     }
-
-    require("telescope").load_extension("projects")
+else
+    log.debug("nvim-project not found")
 end
-
-
-if not pcall(load_nvim_project) then
-    log.warn("error loading nvim-project")
-end
-
