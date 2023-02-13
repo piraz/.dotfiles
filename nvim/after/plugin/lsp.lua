@@ -2,6 +2,7 @@
 -- local log = Dev.log
 local lsp = require("lsp-zero")
 -- local lspconfig = require("lspconfig")
+local lspconfig_util = require("lspconfig")
 
 lsp.preset("recommended")
 
@@ -11,7 +12,7 @@ lsp.ensure_installed({
     "jsonls",
     "lemminx",
     "prosemd_lsp", -- proselint should be installed manually 
-    "pyright",
+    "pylsp",
     "sumneko_lua",
     "tsserver",
 })
@@ -29,6 +30,9 @@ lsp.set_preferences({
     sign_icons = {}
 })
 
+-- kind of based on https://jdhao.github.io/2021/08/12/nvim_sumneko_lua_conf/
+-- but on the diagnostics we need use also and the workspace.library is not
+-- needed
 lsp.configure("sumneko_lua",{
     settings = {
         Lua = {
@@ -41,14 +45,14 @@ lsp.configure("sumneko_lua",{
                 -- Get the language server to recognize the `vim` global
                 globals = {"vim", "use" },
             },
-            workspace = {
-                -- Make the server aware of Neovim runtime files
-                -- library = vim.api.nvim_get_runtime_file("", true),
-
-                -- workspace = {
-                --     checkThirdParty = false,
-                -- },
-            },
+            -- workspace = {
+            --     -- Make the server aware of Neovim runtime files
+            --     library = vim.api.nvim_get_runtime_file("", true),
+            --
+            --     workspace = {
+            --         checkThirdParty = false,
+            --     },
+            -- },
             -- Do not send telemetry data containing a randomized but unique
             -- identifier
             telemetry = {
@@ -59,9 +63,10 @@ lsp.configure("sumneko_lua",{
 })
 
 -- lsp.configure("ruff_lsp",{
+--     -- see :h lspconfig-root-detection
 --     settings = {
 --         single_file_support = false,
---         root_dir = "/home/fpiraz/source/candango/etcdpy"
+--         root_dir = lspconfig_util.find_git_ancestor,
 --     }
 -- })
 
@@ -70,15 +75,14 @@ lsp.setup_nvim_cmp({
 })
 
 -- lsp.on_lsp_ready(function(client, bufnr)
---     if client.name == "sumneko_lua" then
---         client.resolved_capabilities.document_formatting = false
---         client.resolved_capabilities.document_range_formatting = false
---     end
 -- end)
 
 
 lsp.on_attach(function(client, bufnr)
     local opts = {buffer = bufnr, remap = false}
+    if client.name == "ruff_lsp" then
+        print(vim.inspect(client))
+    end
 
     vim.keymap.set("n", "gd", function() vim.lsp.buf.definition() end, opts)
     vim.keymap.set("n", "K", function() vim.lsp.buf.hover() end, opts)
