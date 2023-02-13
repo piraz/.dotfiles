@@ -6,6 +6,16 @@ local lspconfig_util = require("lspconfig")
 
 lsp.preset("recommended")
 
+-- Servers are located at:
+--
+-- ~/.local/share/nvim/site/pack/packer/start/mason-lspconfig.nvim/lua/
+-- mason-lspconfig/mappings/server.lua
+local lua_lsp = "sumneko_lua"
+
+if vim.loop.os_uname().sysname == "Darwin" then
+    lua_lsp = "lua_ls"
+end
+
 lsp.ensure_installed({
     "bashls", -- shell check should be installed manually
     "intelephense",
@@ -13,7 +23,7 @@ lsp.ensure_installed({
     "lemminx",
     "prosemd_lsp", -- proselint should be installed manually 
     "pylsp",
-    "sumneko_lua",
+    lua_lsp,
     "tsserver",
 })
 
