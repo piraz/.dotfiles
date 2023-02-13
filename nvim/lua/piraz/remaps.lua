@@ -1,6 +1,7 @@
 local keymap = require("piraz.keymap");
 
 local nnoremap = keymap.nnoremap;
+local vnoremap = keymap.vnoremap;
 
 vim.g.mapleader = " ";
 -- nnoremap("<leader>bls", "<cmd>ls<CR><cmd>b ");
@@ -10,6 +11,8 @@ nnoremap("<leader>so", "<cmd>so<CR>");
 nnoremap("<leader>pks", "<cmd>PackerSync<CR>");
 
 
+-- see: https://stackoverflow.com/a/73354675/2887989
+vnoremap("<leader>cp", '<cmd>"+y<esc><CR>');
 
 -- From: https://superuser.com/a/310424
--- TODO: See if this is good: nnoremap()
+-- TODO: See if this good: nnoremap()
