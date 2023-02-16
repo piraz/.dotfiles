@@ -10,11 +10,7 @@ lsp.preset("recommended")
 --
 -- ~/.local/share/nvim/site/pack/packer/start/mason-lspconfig.nvim/lua/
 -- mason-lspconfig/mappings/server.lua
-local lua_lsp = "sumneko_lua"
-
-if vim.loop.os_uname().sysname == "Darwin" then
-    lua_lsp = "lua_ls"
-end
+local lua_lsp = "lua_ls"
 
 lsp.ensure_installed({
     "bashls", -- shell check should be installed manually
@@ -43,7 +39,7 @@ lsp.set_preferences({
 -- kind of based on https://jdhao.github.io/2021/08/12/nvim_sumneko_lua_conf/
 -- but on the diagnostics we need use also and the workspace.library is not
 -- needed
-lsp.configure("sumneko_lua",{
+lsp.configure(lua_lsp,{
     settings = {
         Lua = {
             runtime = {
