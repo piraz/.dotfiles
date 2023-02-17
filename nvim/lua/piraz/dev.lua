@@ -2,8 +2,9 @@ local M =  {
 }
 
 M.log = require("plenary.log").new({
-    plugin = "piraz",
     level = "debug",
+    plugin = "piraz",
+    use_console = false,
 })
 
 return M
