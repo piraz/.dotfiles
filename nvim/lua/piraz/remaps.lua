@@ -13,7 +13,8 @@ nnoremap("<leader>pks", "<cmd>PackerSync<CR>")
 
 
 -- see: https://stackoverflow.com/a/73354675/2887989
-vnoremap("<leader>cp", '"+y<Esc>')
+vnoremap("<leader>y", [["+y<Esc>]])
+vnoremap("<leader>Y", [["+Y<Esc>]])
 
 -- From: https://superuser.com/a/310424
 -- TODO: See if this good: nnoremap()
