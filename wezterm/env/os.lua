@@ -14,9 +14,9 @@ function M._clean_names(raw_os_name, raw_os_arch)
    local os_patterns = {
       ["windows"] = "Windows",
       ["linux"] = "Linux",
-      ["osx"] = "Mac",
-      ["mac"] = "Mac",
-      ["darwin"] = "Mac",
+      ["osx"] = "Darwin",
+      ["mac"] = "Darwin",
+      ["darwin"] = "Darwin",
       ["^mingw"] = "Windows",
       ["^cygwin"] = "Windows",
       ["bsd$"] = "BSD",
