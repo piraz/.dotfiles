@@ -13,6 +13,8 @@ return require("packer").startup(function(use)
 
     use("github/copilot.vim")
 
+    use ("nvim-lualine/lualine.nvim")
+
     use("kylechui/nvim-surround")
     use("nvim-tree/nvim-web-devicons")
     use("nvim-treesitter/nvim-treesitter", {run = ":TSUpdate"})
@@ -32,7 +34,7 @@ return require("packer").startup(function(use)
     use("thehamsta/nvim-dap-virtual-text")
     use("nvim-telescope/telescope-dap.nvim")
     use("folke/neodev.nvim")
-
+    use("fatih/vim-go")
 
     use({
         "EdenEast/nightfox.nvim",
