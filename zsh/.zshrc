@@ -73,11 +73,18 @@ ZSH_THEME="piraz"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git)
+plugins=(git virtualenv)
 
 source $ZSH/oh-my-zsh.sh
 
 # User configuration
+
+# OS specific configuration
+if [[ $(uname) == "Darwin" ]]; then
+    source ~/.zshrc.d/mac.zsh
+elif [[ $(uname) == "Linux" ]]; then
+    source ~/.zshrc.d/linux.zsh
+fi
 
 # export MANPATH="/usr/local/man:$MANPATH"
 
@@ -102,4 +109,3 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-alias wezterm="flatpak run org.wezfurlong.wezterm"
