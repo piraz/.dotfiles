@@ -6,3 +6,7 @@
 	path = wezterm
 	url = git@github.com:piraz/wezterm.config.git
 	branch = master
+[submodule "zsh"]
+	path = zsh
+	url = git@github.com:piraz/zsh.config.git
+	branch = master
