@@ -7,6 +7,16 @@ else
     | fzf)
 fi
 
+if [[ -z $SOURCE_PATH ]]; then
+    echo "No source path selected"
+    exit 0
+fi
+
+if [[ ! -d $SOURCE_PATH ]]; then
+    echo "Source path is not a directory"
+    exit 0
+fi
+
 PARENT_SOURCE_PATH="$(eval 'readlink -f $SOURCE_PATH/..')"
 
 SESH_NAME=$(basename -a "$SOURCE_PATH" "$PARENT_SOURCE_PATH" | paste -sd "@" -)
