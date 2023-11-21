@@ -1,0 +1,38 @@
+#!/usr/bin/env bash
+
+if [[ $# -eq 1 ]]; then
+    SOURCE_PATH="$(eval 'readlink -f $1')"
+else
+    SOURCE_PATH=$(eval "find $PIRAZ_SOURCES -mindepth 1 -maxdepth 1 -type d"\
+    | fzf)
+fi
+
+PARENT_SOURCE_PATH="$(eval 'readlink -f $SOURCE_PATH/..')"
+
+SESH_NAME=$(basename -a "$SOURCE_PATH" "$PARENT_SOURCE_PATH" | paste -sd "@" -)
+
+TMUX_RUNNNG=$(pgrep tmux)
+
+if [[ -z $TMUX ]] && [[ -z $TMUX_RUNNNG ]]; then
+    tmux new-session -s "$SESH_NAME" -c "$SOURCE_PATH"
+    exit 0
+fi
+
+tmux has-session -t="$SESH_NAME" 2> /dev/null
+HAS_SESH=$?
+
+if [[ -z $TMUX ]] && [[ $TMUX_RUNNNG ]] && [[ $HAS_SESH == 0 ]] ; then
+    tmux attach -t "$SESH_NAME"
+    exit 0
+fi
+
+if [[ -z $TMUX ]] && [[ $TMUX_RUNNNG ]]; then
+    tmux new-session -s "$SESH_NAME" -c "$SOURCE_PATH"
+    exit 0
+fi
+
+if ! tmux has-session -t="$SESH_NAME" 2> /dev/null; then
+    tmux new-session -ds "$SESH_NAME" -c "$SOURCE_PATH"
+fi
+
+tmux switch-client -t "$SESH_NAME"
