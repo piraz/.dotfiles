@@ -3,8 +3,8 @@
 if [[ $# -eq 1 ]]; then
     SOURCE_PATH="$(eval 'readlink -f $1')"
 else
-    SOURCE_PATH=$(eval "find $PIRAZ_SOURCES -mindepth 1 -maxdepth 1 -type d"\
-    | fzf)
+    PPATHS=$(eval "find $PIRAZ_SOURCES -mindepth 1 -maxdepth 1 -type d")
+    SOURCE_PATH=$(echo -e "${HOME}\n${PPATHS}" | fzf)
 fi
 
 if [[ -z $SOURCE_PATH ]]; then
